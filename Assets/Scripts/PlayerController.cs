@@ -25,11 +25,6 @@ public class PlayerController : MonoBehaviour
             rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isOnGround = false;
         }
-        else if (isOnGround == false)
-        {
-            Debug.Log("The player is aleady jumping!");
-        }
-        
 
     }
 
