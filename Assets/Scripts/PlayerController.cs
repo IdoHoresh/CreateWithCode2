@@ -1,8 +1,10 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float jumpForce;
+    private bool isOnGround = true;
+    public float jumpForce = 10;
     public float gravityModifier;
     private Rigidbody rigidbody;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -16,10 +18,23 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //when space is pressed the player jump up
-        if (Input.GetKeyDown(KeyCode.Space))
+        
+        //when space is pressed the player jump up only if the player is on the ground
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround == true)
         {
-            rigidbody.AddForce(Vector3.up * jumpForce,ForceMode.Impulse);
+            rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isOnGround = false;
         }
+        else if (isOnGround == false)
+        {
+            Debug.Log("The player is aleady jumping!");
+        }
+        
+
+    }
+
+    private void OnCollisionEnter(Collision collision) // if the player collide with any thing (the floor) the bool will be set to true to be able to jump again
+    {
+        isOnGround = true;
     }
 }
